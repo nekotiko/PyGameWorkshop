@@ -33,11 +33,7 @@ while 1:
     mario = pygame.transform.scale(mario,
                                    (int(mariorect.width * SIZE_MULTIPLIER),
                                     int(mariorect.height * SIZE_MULTIPLIER)))
-
-
-
     screen.blit(mario, mariorect)
-
 
     screen.fill(black)
     screen.blit(mario, mariorect)
