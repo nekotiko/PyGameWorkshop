@@ -17,6 +17,11 @@ pos = [1, 1]
 
 screen = pygame.display.set_mode(size)
 
+coin = pygame.image.load("../assets/coin.png")
+coin_rect = coin.get_rect()
+coin = pygame.transform.scale(coin,
+                              (int(coin_rect.width * SIZE_MULTIPLIER),
+                              int(coin_rect.height * SIZE_MULTIPLIER)))
 mario = pygame.image.load("../assets/mario.png")
 mariorect = mario.get_rect()
 
@@ -33,8 +38,11 @@ while 1:
     mario = pygame.transform.scale(mario,
                                    (int(mariorect.width * SIZE_MULTIPLIER),
                                     int(mariorect.height * SIZE_MULTIPLIER)))
-    screen.blit(mario, mariorect)
-
     screen.fill(black)
+
+    for x in xrange(40, width - 40, 40):
+        for y in xrange(40, height - 40, 40):
+            screen.blit(coin, (x, y))
+
     screen.blit(mario, mariorect)
     pygame.display.flip()
