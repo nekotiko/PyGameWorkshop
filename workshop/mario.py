@@ -10,7 +10,7 @@ SIZE_MULTIPLIER = 2.5
 
 class Mario(Sprite):
 
-    def __init__(self, bricks):
+    def __init__(self):
         Sprite.__init__(self)
         mario = pygame.image.load("../assets/mario.png")
         mario_rect = mario.get_rect()
@@ -21,7 +21,7 @@ class Mario(Sprite):
 
         self.change_x = 0
         self.change_y = 0
-        self.bricks = bricks
+        self.level = None
 
     def update(self):
 
