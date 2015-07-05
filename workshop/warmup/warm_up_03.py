@@ -1,3 +1,5 @@
+from workshop.elements.bricks import RedBrick
+
 __author__ = 'bakeneko'
 
 from workshop.mario import Mario
@@ -43,10 +45,16 @@ mario = Mario()
 player = pygame.sprite.Group()
 player.add(mario)
 
+bricks = pygame.sprite.Group()
+
+
+bricks.add(RedBrick(40, 40))
+bricks.add(RedBrick(80, 40))
+
 items = pygame.sprite.Group()
 
-for x in xrange(40, width - 40, 40):
-    for y in xrange(40, height - 40, 40):
+for x in xrange(120, width - 40, 40):
+    for y in xrange(120, height - 40, 40):
         items.add(Coin(x, y))
 
 
@@ -55,6 +63,7 @@ all_sprites = pygame.sprite.Group()
 all_sprites.add(items)
 all_sprites.add(mario)
 
+all_sprites.add(bricks)
 
 while 1:
 

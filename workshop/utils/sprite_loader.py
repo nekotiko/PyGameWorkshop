@@ -13,6 +13,7 @@ ITEMS_IMAGES = None
 SPRITE_DIMENTIONS = {
         'red_floor': (0, 0, 16, 16),
 
+        'red_brick': (16, 0, 16, 16),
         'empty_brick': (432, 0, 16, 16),
         'broken_brick': (68, 20, 8, 8),
         'solid_brick': (0, 16, 16, 16),
@@ -152,7 +153,7 @@ class ImageSlider(object):
         return scale_image
 
     @staticmethod
-    def convert(self, image):
+    def convert(image):
         if image.get_alpha():
             img = image.convert_alpha()
             return img
