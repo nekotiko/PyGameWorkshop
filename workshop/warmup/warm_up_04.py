@@ -1,8 +1,9 @@
-from workshop.elements.bricks import RedBrick
+
 
 __author__ = 'bakeneko'
 
 from workshop.mario import Mario
+from workshop.elements.bricks import RedBrick
 from pygame.sprite import Sprite
 import pygame
 import sys
@@ -40,16 +41,17 @@ class Coin(Sprite):
        SCORE[0] += 1000
        print(SCORE)
 
-
-mario = Mario()
-player = pygame.sprite.Group()
-player.add(mario)
-
 bricks = pygame.sprite.Group()
 
 
 bricks.add(RedBrick(40, 40))
 bricks.add(RedBrick(80, 40))
+
+
+mario = Mario(bricks)
+player = pygame.sprite.Group()
+player.add(mario)
+
 
 items = pygame.sprite.Group()
 
@@ -70,6 +72,16 @@ while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        mario.go_left()
+    if keys[pygame.K_RIGHT]:
+        mario.go_right()
+    if keys[pygame.K_UP]:
+        mario.go_up()
+    if keys[pygame.K_DOWN]:
+        mario.go_down()
 
     pygame.sprite.spritecollide(mario, items, True)
 
