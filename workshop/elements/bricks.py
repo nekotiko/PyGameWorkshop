@@ -2,9 +2,7 @@
 __author__ = 'bakeneko'
 
 
-import pygame
 from pygame.sprite import Sprite
-from workshop.utils import constants
 from workshop.utils.sprite_loader import IMAGE_SLIDER
 
 class RedBrick(Sprite):
@@ -15,3 +13,8 @@ class RedBrick(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+class SolidPlatform(RedBrick):
+
+    def __init__(self, x, y):
+        RedBrick.__init__(self, x, y, 'solid_brick')

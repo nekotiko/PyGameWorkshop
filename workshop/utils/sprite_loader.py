@@ -91,18 +91,18 @@ class ImageSlider(object):
         self.images = {}
 
     def get_item(self, name, multiplier=SIZE_MULTIPLIER):
-        image = self._get_image(name, '../assets/item_objects.png', 'items', multiplier)
+        image = self._get_image(name, 'assets/item_objects.png', 'items', multiplier)
         return image
 
     def get_mario(self, name):
-        return self._get_image('mario_' + name, '../assets/mario_bros.png', 'mario')
+        return self._get_image('mario_' + name, 'assets/mario_bros.png', 'mario')
 
     def get_image(self, name, multiplier=SIZE_MULTIPLIER):
-        return self._get_image(name, '../assets/tile_set.png', 'asset', multiplier)
+        return self._get_image(name, 'assets/tile_set.png', 'asset', multiplier)
 
 
     def get_enemies(self, name):
-        image = self._get_image(name, '../assets/enemies.png', 'enemies')
+        image = self._get_image(name, 'assets/enemies.png', 'enemies')
         return image
 
     def _get_image(self, name, path, type, multiplier=SIZE_MULTIPLIER):

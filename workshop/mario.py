@@ -12,7 +12,7 @@ class Mario(Sprite):
 
     def __init__(self):
         Sprite.__init__(self)
-        mario = pygame.image.load("../assets/mario.png")
+        mario = pygame.image.load("assets/mario.png")
         mario_rect = mario.get_rect()
         self.image = pygame.transform.scale(mario,
                                    (int(mario_rect.width * SIZE_MULTIPLIER),
@@ -23,11 +23,12 @@ class Mario(Sprite):
         self.change_y = 0
         self.level = None
 
+
     def update(self):
 
         self.rect.x += self.change_x
 
-        block_hit_list = pygame.sprite.spritecollide(self, self.bricks, False)
+        block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
             # If we are moving right,
             # set our right side to the left side of the item we hit
@@ -39,7 +40,7 @@ class Mario(Sprite):
 
         self.rect.y += self.change_y
 
-        block_hit_list = pygame.sprite.spritecollide(self, self.bricks, False)
+        block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
 
         for block in block_hit_list:
 

@@ -25,6 +25,8 @@ def main():
     current_level = level.Level(mario)
 
     active_sprite_list = pygame.sprite.Group()
+    active_sprite_list.add(mario)
+
     mario.level = current_level
 
     done = False
