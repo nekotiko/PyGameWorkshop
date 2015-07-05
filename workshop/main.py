@@ -45,8 +45,6 @@ def main():
             mario.go_right()
         if keys[pygame.K_UP]:
             mario.go_up()
-        if keys[pygame.K_DOWN]:
-            mario.go_down()
 
         # Update the player.
         active_sprite_list.update()

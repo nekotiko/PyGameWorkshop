@@ -21,10 +21,13 @@ class Mario(Sprite):
 
         self.change_x = 0
         self.change_y = 0
+        self.gravity = 4.5
         self.level = None
 
 
     def update(self):
+
+        self.calc_grav()
 
         self.rect.x += self.change_x
 
@@ -37,6 +40,8 @@ class Mario(Sprite):
             elif self.change_x < 0:
                 # Otherwise if we are moving left, do the opposite.
                 self.rect.left = block.rect.right
+
+
 
         self.rect.y += self.change_y
 
@@ -51,7 +56,18 @@ class Mario(Sprite):
             elif self.change_y < 0:
                 self.rect.top = block.rect.bottom
 
-        self.change_x = self.change_y = 0
+            #stop our vertical movements
+            self.change_y = 0
+
+        self.change_x = 0
+
+    def calc_grav(self):
+        """ Calculate effect of gravity. """
+        if self.change_y == 0:
+            self.change_y = 1
+        else:
+            if self.change_y < 10: #This is our max falling speed
+                self.change_y += self.gravity
 
 
     def go_left(self):
@@ -63,5 +79,3 @@ class Mario(Sprite):
     def go_up(self):
         self.change_y = -10
 
-    def go_down(self):
-        self.change_y = 10
