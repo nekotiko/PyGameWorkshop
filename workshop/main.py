@@ -33,6 +33,11 @@ def main():
 
     while not done:
         milliseconds =  clock.tick(FPS)
+        seconds = milliseconds / 1000.0 # seconds passed since last frame (float)
+        playtime = current_level.physics_info['play_time'] + seconds
+        current_level.physics_info['current_time'] = milliseconds
+        current_level.physics_info['seconds'] = seconds
+        current_level.physics_info['play_time'] = playtime
 
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close

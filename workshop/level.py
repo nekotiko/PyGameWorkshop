@@ -1,4 +1,5 @@
 from workshop.elements.bricks import RedBrick, SolidPlatform
+from workshop.elements.enemies import Goomba
 
 __author__ = 'bakeneko'
 
@@ -24,19 +25,26 @@ class Level(object):
         self.world_shift = 0
         self.setup()
 
+        self.physics_info = {'play_time': 0, 'seconds': 0, 'current_time': 0}
+
     # Update everythign on this level
     def update(self):
         """ Update everything in this level."""
         self.platform_list.update()
+        self.enemy_list.update()
+        self.animation_list.update()
 
     def draw(self, screen):
         """ Draw everything on this level. """
 
         # Draw the background
-        screen.fill(BLACK, None)
+        screen.fill(BACKGROUND_BLUE, None)
 
         # Draw all the sprite lists that we have
+        self.scenario_list.draw(screen)
         self.platform_list.draw(screen)
+        self.enemy_list.draw(screen)
+        self.animation_list.draw(screen)
 
     def shift_world(self, shift_x):
         """ When the user moves left/right and we need to scroll everything: """
@@ -74,6 +82,9 @@ class Level(object):
     def add_animation(self, animation):
         self.animation_list.add(animation)
 
+    def add_point(self, points, rect=None, display=True):
+        pass
+
     def setup(self):
         new_width = SCREEN_WIDTH * 10
         for x in xrange(0, new_width , BLOCK_SIZE):
@@ -83,3 +94,8 @@ class Level(object):
             x = random.randint(0, new_width)
             y = random.randint(0, SCREEN_HEIGHT - BLOCK_SIZE * 2)
             self.platform_list.add(RedBrick(x, y))
+
+        for i in xrange(0, 100):
+            x = random.randint(0, new_width)
+            y = random.randint(0, SCREEN_HEIGHT - BLOCK_SIZE * 2)
+            self.enemy_list.add(Goomba(x, y, level=self))
