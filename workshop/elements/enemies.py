@@ -159,3 +159,36 @@ class Enemy(Sprite):
             self.animation()
             if self.rect.x <= - BLOCK_SIZE * 5: #Too far behind let's get rid of it
                 self.kill()
+
+class Goomba(Enemy):
+
+    def __init__(self,x=0, y=GROUND_HEIGHT, level=None, direction=LEFT, name='goomba'):
+        Enemy.__init__(self)
+        self.setup_enemy(x, y, level, direction, name, self.setup_frames)
+
+
+
+    def setup_frames(self):
+        """Put the image frames in a list to be animated"""
+
+        self.frames.append(
+            IMAGE_SLIDER.get_enemies('goomba_1'))
+        self.frames.append(
+            IMAGE_SLIDER.get_enemies('goomba_2'))
+        self.frames.append(
+            IMAGE_SLIDER.get_enemies('goomba_3'))
+
+        self.frames.append(pygame.transform.flip(self.frames[0], False, True))
+
+
+    def jumped_on(self):
+        """When Mario squishes him"""
+        if self.state != FIEND_JUMPED_ON:
+            self.level.add_point(100, self.rect)
+
+        self.state = FIEND_JUMPED_ON
+        self.frame_index = 2
+        self.change_x = 0
+
+        if self.current_time > 0.50: #half second
+            self.kill()
