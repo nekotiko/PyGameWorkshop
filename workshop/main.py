@@ -52,6 +52,13 @@ def main():
         # Update items in the level
         current_level.update()
 
+         # If the player gets near the right side, shift the world left (-x)
+        LIMIT = SCREEN_WIDTH - BLOCK_SIZE * 5
+        if mario.rect.x >= LIMIT:
+            diff = mario.rect.x - LIMIT
+            mario.rect.x = LIMIT
+            current_level.shift_world(-diff)
+
         current_level.draw(screen)
         active_sprite_list.draw(screen)
 

@@ -21,7 +21,7 @@ class Level(object):
         #Animations are elements that interact with nothing and will be removed soon
         self.animation_list  = pygame.sprite.Group()
 
-        self.world_shift_x = 0
+        self.world_shift = 0
         self.setup()
 
     # Update everythign on this level

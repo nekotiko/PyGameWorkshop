@@ -43,6 +43,11 @@ class Mario(Sprite):
 
 
 
+        if self.rect.x < 0:
+            self.rect.x = 0
+
+
+        # Move up/down
         self.rect.y += self.change_y
 
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
