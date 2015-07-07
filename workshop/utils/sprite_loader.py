@@ -165,3 +165,7 @@ class ImageSlider(object):
 
 #Instanciate the Image Slider Object
 IMAGE_SLIDER = ImageSlider()
+
+def get_pipe(size=1):
+    top = IMAGE_SLIDER.get_image('pipe_top')
+    body = IMAGE_SLIDER.get_image('pipe_body')
