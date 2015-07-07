@@ -169,3 +169,15 @@ IMAGE_SLIDER = ImageSlider()
 def get_pipe(size=1):
     top = IMAGE_SLIDER.get_image('pipe_top')
     body = IMAGE_SLIDER.get_image('pipe_body')
+    b_height = body.get_height()
+
+    height = top.get_height() + (b_height * size)
+    width = top.get_width()
+
+    new_pipe = pygame.Surface([width, height], pygame.SRCALPHA, 32)
+
+    new_pipe.blit(top, (0, 0))
+    for y in xrange(top.get_height(), b_height * size + 1, b_height):
+        new_pipe.blit(body, (4, y))
+
+    return new_pipe

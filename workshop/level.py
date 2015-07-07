@@ -1,4 +1,4 @@
-from workshop.elements.bricks import RedBrick, SolidPlatform
+from workshop.elements.bricks import RedBrick, SolidPlatform, Pipe
 from workshop.elements.enemies import Goomba
 
 __author__ = 'bakeneko'
@@ -99,3 +99,8 @@ class Level(object):
             x = random.randint(0, new_width)
             y = random.randint(0, SCREEN_HEIGHT - BLOCK_SIZE * 2)
             self.enemy_list.add(Goomba(x, y, level=self))
+
+        for i in xrange(0, 20):
+            x = random.randint(0, new_width)
+            y = (SCREEN_HEIGHT - BLOCK_SIZE * 2)
+            self.add_platform(Pipe(x, y, random.randint(1,6)))
