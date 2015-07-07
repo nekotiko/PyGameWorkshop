@@ -4,7 +4,7 @@ __author__ = 'bakeneko'
 
 import pygame
 from pygame.sprite import Sprite
-
+from workshop.utils.constants import *
 
 SIZE_MULTIPLIER = 2.5
 
@@ -65,6 +65,17 @@ class Mario(Sprite):
             self.change_y = 0
 
         self.change_x = 0
+
+        enemies_hit_list = pygame.sprite.spritecollide(self, self.level.enemy_list, False)
+        for enemy in enemies_hit_list:
+            if enemy.state != FIEND_JUMPED_ON and \
+                (enemy.rect.collidepoint(self.rect.midbottom) or \
+                enemy.rect.collidepoint(self.rect.bottomright) or \
+                enemy.rect.collidepoint(self.rect.bottomleft)) : #We kill it!
+
+                self.change_y = -15
+                enemy.jumped_on()
+
 
     def calc_grav(self):
         """ Calculate effect of gravity. """
