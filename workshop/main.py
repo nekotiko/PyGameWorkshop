@@ -1,4 +1,5 @@
 from workshop import level
+from workshop.utils.level_loader import load_level
 
 __author__ = 'bakeneko'
 
@@ -23,6 +24,7 @@ def main():
     mario = Mario()
 
     current_level = level.Level(mario)
+    load_level(current_level)
 
     active_sprite_list = pygame.sprite.Group()
     active_sprite_list.add(mario)

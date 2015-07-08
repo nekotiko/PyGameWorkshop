@@ -25,7 +25,7 @@ class Level(object):
         self.animation_list  = pygame.sprite.Group()
 
         self.world_shift = 0
-        self.setup()
+        #self.setup()
 
         self.physics_info = {'play_time': 0, 'seconds': 0, 'current_time': 0}
 

@@ -227,3 +227,73 @@ def get_hill(size):
         j = 0
 
     return hill
+
+#Activity 10
+def get_bush(size=1):
+    images = []
+    for x in xrange(3):
+        images.append(IMAGE_SLIDER.get_image('bush_{}'.format(x)))
+
+    height = BLOCK_SIZE
+    #2 is the head and tail of the bush
+    parts = 2 + size
+    width = BLOCK_SIZE * parts
+
+    bush = pygame.Surface([width, height], pygame.SRCALPHA, 32)
+
+    bush.blit(images[0], (0, 0))
+    for x in xrange(BLOCK_SIZE, BLOCK_SIZE * size + 1 , BLOCK_SIZE ):
+        bush.blit(images[1], (x ,0))
+
+    bush.blit(images[2], (width - BLOCK_SIZE ,0))
+
+    return bush
+
+
+
+def get_castle():
+    width = BLOCK_SIZE * 5
+    height = BLOCK_SIZE * 5
+    images = []
+
+    for index in xrange(7):
+        images.append(IMAGE_SLIDER.get_image('castle_{}'.format(index)))
+
+    map = [(-1, 0, 0, 0, -1),
+           (-1, 2, 5, 6, -1),
+           (0, 1, 1, 1, 0),
+           (5, 5, 3, 5, 5),
+           (5, 5, 4, 5, 5),]
+
+    castle = pygame.Surface([width, height], pygame.SRCALPHA, 32)
+
+    i = j = 0
+    for x in xrange(0, width, BLOCK_SIZE):
+        for y in xrange(0, height, BLOCK_SIZE):
+            index = map[j][i]
+            if index >= 0:
+                block = images[index]
+                castle.blit(block, (x, y))
+            j += 1
+        i += 1
+        j = 0
+
+    return castle
+
+
+def get_pole():
+    width = BLOCK_SIZE
+    height = BLOCK_SIZE * 10
+
+    pole = pygame.Surface([width, height], pygame.SRCALPHA, 32)
+
+    top = IMAGE_SLIDER.get_image('pole_top')
+    body= IMAGE_SLIDER.get_image('pole_body')
+    flag = IMAGE_SLIDER.get_image('pole_flag')
+
+    pole.blit(top,(0, 0))
+    for y in xrange(BLOCK_SIZE, BLOCK_SIZE*10, BLOCK_SIZE):
+
+        pole.blit(body, (0, y))
+
+    return pole
