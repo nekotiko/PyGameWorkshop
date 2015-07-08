@@ -1,5 +1,7 @@
 from workshop.elements.bricks import RedBrick, SolidPlatform, Pipe
 from workshop.elements.enemies import Goomba
+from workshop.elements.scenario import ScenarioItem, ScenarioWithImage
+from workshop.utils.sprite_loader import get_hill
 
 __author__ = 'bakeneko'
 
@@ -104,3 +106,15 @@ class Level(object):
             x = random.randint(0, new_width)
             y = (SCREEN_HEIGHT - BLOCK_SIZE * 2)
             self.add_platform(Pipe(x, y, random.randint(1,6)))
+
+        for i in xrange(0, 40):
+            x = random.randint(0, new_width)
+            y = random.randint(0, SCREEN_HEIGHT - BLOCK_SIZE * 2)
+            self.add_scenario(ScenarioItem(x, y, 'cloud_1'))
+
+            size = random.randint(1,2)
+            multi = 4 if size == SCENARIO_BIG_HILL else 3
+            x = random.randint(0, new_width)
+            y = (SCREEN_HEIGHT - BLOCK_SIZE * multi)
+
+            self.add_scenario(ScenarioWithImage(x, y, get_hill(size)))

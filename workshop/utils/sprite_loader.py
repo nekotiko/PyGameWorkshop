@@ -181,3 +181,49 @@ def get_pipe(size=1):
         new_pipe.blit(body, (4, y))
 
     return new_pipe
+
+
+#========== 9 Solution ======
+
+
+def get_hill(size):
+    '''
+    big_hill, 5 w x 3h
+    :param size:
+    :return:
+    '''
+
+    if size == SCENARIO_BIG_HILL:
+        width = 5 * BLOCK_SIZE
+        height = 3 * BLOCK_SIZE
+
+        hill_map = [(-1, -1, 2, -1, -1),
+                    (-1, 0, 1, 4, -1),
+                    ( 0, 1, 3, 5, 4)]
+
+    elif size == SCENARIO_SMALL_HILL:
+        width = 3 * BLOCK_SIZE
+        height = 2 * BLOCK_SIZE
+
+        hill_map = [(-1, 2, -1),
+                    (0, 1, 4)]
+
+    images = []
+
+    for index in xrange(6):
+        images.append(IMAGE_SLIDER.get_image('mountain_{}'.format(index)))
+
+    hill = pygame.Surface([width, height], pygame.SRCALPHA, 32)
+
+    i = j = 0
+    for x in xrange(0, width, BLOCK_SIZE):
+        for y in xrange(0, height, BLOCK_SIZE):
+            index = hill_map[j][i]
+            if index >= 0:
+                block = images[index]
+                hill.blit(block, (x, y))
+            j += 1
+        i += 1
+        j = 0
+
+    return hill

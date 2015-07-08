@@ -20,6 +20,6 @@ class ScenarioWithImage(Sprite):
     def __init__(self, x, y, image):
         Sprite.__init__(self)
         self.image = image
-        self.rect = self.image.get_rect(bottomleft=(x-BLOCK_SIZE,y))
+        self.rect = self.image.get_rect(bottomleft=(x-BLOCK_SIZE, y))
         self.rect.y = y
 
