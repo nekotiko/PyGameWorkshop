@@ -228,5 +228,17 @@ class Mario(Sprite):
                 self.speed = 0
 
 
+    @property
+    def is_running(self):
+       return self.__running
 
+    @is_running.setter
+    def is_running(self, running):
+       if not self.__running and running:
+           self.__max_vel = PY_MAX_MARIO_RUN_VEL
+           self.__speed_acc = PY_MARIO_RUN_ACC
+       elif not running and self.__running:
+           self.__max_vel = PY_MAX_MARIO_WALK_VEL
+           self.__speed_acc = PY_MARIO_WALK_ACC
+       self.__running = running
 

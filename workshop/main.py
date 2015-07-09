@@ -46,10 +46,14 @@ def main():
                 done = True # Flag that we are done so we exit this loop
 
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_s:
+                    mario.is_running = True
                 if event.key == pygame.K_a and mario.state != MARIO_STATE_JUMPING:
                     mario.jump()
 
             if event.type == pygame.KEYUP:
+                if event.key == pygame.K_s:
+                    mario.is_running = False
                 if event.key == pygame.K_a:
                     mario.stop_antigravity()
 
