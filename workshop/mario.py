@@ -21,8 +21,9 @@ class Mario(Sprite):
 
         self.change_x = 0
         self.change_y = 0
-        self.gravity = 4.5
+        self.gravity = 0
         self.level = None
+        self.state = MARIO_STATE_NORMAL
 
 
     def update(self):
