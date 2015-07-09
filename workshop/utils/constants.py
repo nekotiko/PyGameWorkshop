@@ -56,6 +56,10 @@ MAP_TURTLE     = (127, 201, 255)
 MAP_1UP = (0, 127, 70)
 
 
+
+MARIO_STATE_NORMAL = 0
+MARIO_STATE_JUMPING = 1
+
 """
 Physics according a complete guide to SMB's Physics engine
 the velocities will be expresed in /16 of the previos so
