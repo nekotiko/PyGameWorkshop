@@ -1,4 +1,4 @@
-
+from workshop.elements.animations import DyingMario
 
 __author__ = 'bakeneko'
 
@@ -226,3 +226,7 @@ class Mario(Sprite):
             if self.change_x * self.direction < 0:
                 self.change_x = 0
                 self.speed = 0
+
+
+
+
