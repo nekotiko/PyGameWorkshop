@@ -54,3 +54,65 @@ MAP_SMALL_CASTLE   = (80, 63, 127)
 MAP_GOOMBA_1       = (0, 255, 255)
 MAP_TURTLE     = (127, 201, 255)
 MAP_1UP = (0, 127, 70)
+
+
+"""
+Physics according a complete guide to SMB's Physics engine
+the velocities will be expresed in /16 of the previos so
+ * 16 Block
+ / 1 pixel
+ / 16.0 subpixel
+ / 16.0 / 16.0 ss-pixel
+ / 16.0 / 16.0 / 16.0 sss-pixel
+
+ This numbers are for frame-based movement, we can do time-based movement but it will require convertion
+"""
+def doc_unit_to_value(num):
+    if len(num) != 5:
+        raise ValueError('Number can be only a String of 5 digits')
+
+    sum = int(num[0], 16) * 16.0 + \
+          int(num[1], 16) + \
+          int(num[2], 16) / 16.0 + \
+          int(num[3], 16) / 16.0 / 16.0 + \
+          int(num[4], 16) / 16.0 / 16.0 / 16.0
+    return sum * SIZE_MULTIPLIER
+
+def doc_unit_to_pixels_per_second(num):
+    pixels_per_frame = doc_unit_to_value(num)
+    return pixels_per_frame * FPS
+
+PY_MAX_MARIO_WALK_VEL = doc_unit_to_pixels_per_second('01900')
+PY_MIN_MARIO_WALK_VEL = doc_unit_to_pixels_per_second('00130')
+PY_MARIO_WALK_ACC     = doc_unit_to_pixels_per_second('00098')
+PY_MARIO_WALK_DEC     = doc_unit_to_pixels_per_second('000D0')
+PY_MAX_MARIO_RUN_VEL  = doc_unit_to_pixels_per_second('02900')
+PY_MARIO_RUN_ACC  = doc_unit_to_pixels_per_second('000E4')
+
+PY_JUMP_X_VELOCITY_1 = doc_unit_to_pixels_per_second('01000')
+PY_JUMP_X_VELOCITY_2 = doc_unit_to_pixels_per_second('024FF')
+PY_JUMP_X_VELOCITY_3 = doc_unit_to_pixels_per_second('02500')
+
+PY_JUMP_Y_VELOCITY_1 = doc_unit_to_pixels_per_second('04000')
+PY_JUMP_Y_VELOCITY_2 = doc_unit_to_pixels_per_second('04000')
+PY_JUMP_Y_VELOCITY_3 = doc_unit_to_pixels_per_second('05000')
+
+PY_JUMP_Y_HOLDING_GRAVITY_1 = doc_unit_to_pixels_per_second('00200')
+PY_JUMP_Y_HOLDING_GRAVITY_2 = doc_unit_to_pixels_per_second('001E0')
+PY_JUMP_Y_HOLDING_GRAVITY_3 = doc_unit_to_pixels_per_second('00280')
+
+PY_JUMP_Y_FALLING_GRAVITY_1 = doc_unit_to_pixels_per_second('00700')
+PY_JUMP_Y_FALLING_GRAVITY_2 = doc_unit_to_pixels_per_second('00600')
+PY_JUMP_Y_FALLING_GRAVITY_3 = doc_unit_to_pixels_per_second('00900')
+
+PY_JUMP_Y_MAX_FALLING_ACC = doc_unit_to_pixels_per_second('04800')
+PY_JUMP_Y_MAX_FALLING_RST = doc_unit_to_pixels_per_second('04000')
+
+PY_ENEMY_STOMP_Y_SPEED = doc_unit_to_pixels_per_second('04000')
+
+#Non offical
+PY_ENEMY_WALK_SPEED    = doc_unit_to_pixels_per_second('08000')
+
+
+##Deduced PY
+PY_MAX_WALK_ACC = PY_MAX_MARIO_WALK_VEL - PY_MIN_MARIO_WALK_VEL
