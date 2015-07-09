@@ -128,6 +128,10 @@ class Mario(Sprite):
 
                 self.change_y = -15
                 enemy.jumped_on()
+            else:
+                if enemy.state != FIEND_JUMPED_ON:
+                    self.kill()
+                    self.level.add_animation(DyingMario(self.rect.x, self.rect.y, self.level))
 
 
     def calc_grav(self):
