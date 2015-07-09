@@ -1,10 +1,11 @@
-from workshop.utils.sprite_loader import IMAGE_SLIDER
+
 
 __author__ = 'bakeneko'
 
 import pygame
 from pygame.sprite import Sprite
 from workshop.utils.constants import *
+from workshop.utils.sprite_loader import IMAGE_SLIDER
 
 SIZE_MULTIPLIER = 2.5
 
@@ -12,12 +13,6 @@ class Mario(Sprite):
 
     def __init__(self):
         Sprite.__init__(self)
-        mario = pygame.image.load("assets/mario.png")
-        mario_rect = mario.get_rect()
-        self.image = pygame.transform.scale(mario,
-                                   (int(mario_rect.width * SIZE_MULTIPLIER),
-                                    int(mario_rect.height * SIZE_MULTIPLIER)))
-        self.rect = self.image.get_rect()
 
         self.change_x = 0
         self.change_y = 0
@@ -29,13 +24,51 @@ class Mario(Sprite):
 
         self.jump_physics = {'vel':0, 'antigravity': 0, 'gravity': PY_JUMP_Y_FALLING_GRAVITY_1}
 
+        self.__max_vel = PY_MAX_MARIO_WALK_VEL
+        self.__speed_acc = PY_MAX_WALK_ACC
+        self.__running = False
+
+        # This holds all the images for the animated walk left/right
+        # of our player
+        self.walking_frames_l = []
+        self.walking_frames_r = []
+
+
+        # What direction is the player facing?
+        self.direction = RIGHT
+        for index in xrange(5):
+            #print index
+            mario_image = IMAGE_SLIDER.get_mario('small_walk_{}'.format(index))
+            self.walking_frames_r.append(mario_image)
+            rotated = pygame.transform.flip(mario_image, True, False)
+            self.walking_frames_l.append(rotated)
+
+        self.image = self.walking_frames_r[0]
+
+        # Set a referance to the image rect.
+        self.rect = self.image.get_rect()
+
 
     def update(self):
 
         self.calc_grav()
 
+        pos = self.rect.x + self.level.world_shift
 
-        if self.state == MARIO_STATE_JUMPING:
+        if self.state == MARIO_STATE_NORMAL:
+            if self.change_x:
+                frame = int(pos % 30 / 10) + 1
+                if self.direction == RIGHT:
+                    self.image = self.walking_frames_r[frame]
+                else:
+                    self.image = self.walking_frames_l[frame]
+            else:
+                if self.direction == RIGHT:
+                    self.image = self.walking_frames_r[0]
+                else:
+                    self.image = self.walking_frames_l[0]
+
+        elif self.state == MARIO_STATE_JUMPING:
             self.image = IMAGE_SLIDER.get_mario("small_jumping")
 
         self.rect.x += self.change_x
