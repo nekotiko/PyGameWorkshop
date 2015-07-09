@@ -45,13 +45,17 @@ def main():
             if event.type == pygame.QUIT: # If user clicked close
                 done = True # Flag that we are done so we exit this loop
 
+            if event.type == pygame.KEYDOWN:
+
+                if event.key == pygame.K_a and mario.state != MARIO_STATE_JUMPING:
+                    mario.jump()
+
+
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             mario.go_left()
         if keys[pygame.K_RIGHT]:
             mario.go_right()
-        if keys[pygame.K_UP]:
-            mario.go_up()
 
         # Update the player.
         active_sprite_list.update()
