@@ -48,6 +48,8 @@ class Mario(Sprite):
         # Set a referance to the image rect.
         self.rect = self.image.get_rect()
 
+        self.speed = 0
+
 
     def update(self):
 
@@ -71,6 +73,7 @@ class Mario(Sprite):
         elif self.state == MARIO_STATE_JUMPING:
             self.image = IMAGE_SLIDER.get_mario("small_jumping")
 
+        print(self.rect.x)
         self.rect.x += self.change_x
 
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
@@ -114,7 +117,7 @@ class Mario(Sprite):
             self.gravity = 0
             self.change_y = 0
 
-        self.change_x = 0
+
 
         enemies_hit_list = pygame.sprite.spritecollide(self, self.level.enemy_list, False)
         for enemy in enemies_hit_list:
@@ -164,10 +167,24 @@ class Mario(Sprite):
 
 
     def go_left(self):
-        self.change_x = -10
+        """ Called when the user hits the right arrow. """
+        if self.change_x:
+            self.speed += self.__speed_acc
+            if self.speed > self.__max_vel:
+                self.speed = self.__max_vel
+
+        self.change_x = -(PY_MIN_MARIO_WALK_VEL + self.speed) * self.level.physics_info['seconds']
+        self.direction = LEFT
 
     def go_right(self):
-        self.change_x = 10
+        """ Called when the user hits the right arrow. """
+        if self.change_x:
+            self.speed += self.__speed_acc
+            if self.speed > self.__max_vel:
+                self.speed = self.__max_vel
+
+        self.change_x = (PY_MIN_MARIO_WALK_VEL + self.speed) * self.level.physics_info['seconds']
+        self.direction = RIGHT
 
     def jump(self):
         """ Called when user hits 'jump' button. """
@@ -195,3 +212,13 @@ class Mario(Sprite):
 
     def stop_antigravity(self):
         self.__anti_gravity = False
+
+    def stop(self):
+        """ Called when the user lets off the keyboard. """
+        if self.change_x:
+            self.speed -= self.__speed_acc
+            self.change_x = (PY_MIN_MARIO_WALK_VEL + self.speed) * self.level.physics_info['seconds']
+            self.change_x = self.change_x * self.direction
+            if self.change_x * self.direction < 0:
+                self.change_x = 0
+                self.speed = 0
