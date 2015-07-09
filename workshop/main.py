@@ -24,7 +24,7 @@ def main():
     mario = Mario()
 
     current_level = level.Level(mario)
-    #load_level(current_level)
+    load_level(current_level)
 
     active_sprite_list = pygame.sprite.Group()
     active_sprite_list.add(mario)
@@ -46,9 +46,12 @@ def main():
                 done = True # Flag that we are done so we exit this loop
 
             if event.type == pygame.KEYDOWN:
-
                 if event.key == pygame.K_a and mario.state != MARIO_STATE_JUMPING:
                     mario.jump()
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_a:
+                    mario.stop_antigravity()
 
 
         keys = pygame.key.get_pressed()
