@@ -1,4 +1,5 @@
 from workshop.elements.animations import DyingMario
+from workshop.elements.bricks import RedBrick
 
 __author__ = 'bakeneko'
 

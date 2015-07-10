@@ -28,7 +28,7 @@ def load_level(level_instance, lvl=1):
                 a_y = y * BLOCK_SIZE
                 color = level.get_at((x, y))
                 if compare_with_depth(color, BLACK):
-                    level_instance.add_platform(RedBrick(a_x, a_y, 'red_floor'))
+                    level_instance.add_platform(SolidPlatform(a_x, a_y))
 
                 elif compare_with_depth(color, MAP_QUESTION_BLOCK):
                     pass
@@ -38,10 +38,10 @@ def load_level(level_instance, lvl=1):
                     level_instance.add_brick(RedBrick(a_x, a_y))
 
                 elif compare_with_depth(color, MAP_BRICK_HOLDER):
-                    level_instance.add_brick(RedBrick(a_x, a_y,))
+                    level_instance.add_brick(RedBrick(a_x, a_y))
 
                 elif compare_with_depth(color, MAP_SOLID_BLOCK):
-                    level_instance.add_platform(SolidPlatform(a_x, a_y))
+                    level_instance.add_platform(SolidPlatform(a_x, a_y, 'solid_brick'))
 
                 elif compare_with_depth(color, MAP_CLOUD_1):
                     level_instance.add_scenario(ScenarioItem(a_x, a_y, 'cloud_1'))

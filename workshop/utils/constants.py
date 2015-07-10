@@ -123,3 +123,12 @@ PY_MAX_WALK_ACC = PY_MAX_MARIO_WALK_VEL - PY_MIN_MARIO_WALK_VEL
 
 
 SCREEN_PLAYER_OFFSET = SCREEN_WIDTH / 3 * 2 #2/3 of the screen
+
+#activity
+#BRICK STATES
+
+RESTING = 'resting'
+BUMPED = 'bumped'
+
+#COIN STATES
+OPENED = 'opened'
