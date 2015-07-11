@@ -188,3 +188,9 @@ class QuestionBox(RedBrick):
            self.opened()
 
 
+    def start_bump(self):
+        if self.state != OPENED:
+            cc = CollectedCoin(self.rect.centerx, self.rect.centery, self.level)
+            self.level.add_animation(cc)
+
+        RedBrick.start_bump(self)
