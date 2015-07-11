@@ -11,6 +11,7 @@ SIZE_MULTIPLIER=2.5
 
 
 BLACK = Color('black')
+WHITE = Color('white')
 FPS = 60
 SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
 

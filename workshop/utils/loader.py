@@ -5,7 +5,7 @@ import os
 from constants import MUTE
 
 data_py = os.path.abspath(os.path.dirname(__file__))
-data_dir = os.path.normpath(os.path.join(data_py, '..','..', 'assets'))
+data_dir = os.path.normpath(os.path.join(data_py, '..', 'assets'))
 
 def filepath(filename):
     return os.path.join(data_dir, filename)
