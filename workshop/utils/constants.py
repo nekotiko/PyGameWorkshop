@@ -132,3 +132,5 @@ BUMPED = 'bumped'
 
 #COIN STATES
 OPENED = 'opened'
+
+MUTE = TRUE

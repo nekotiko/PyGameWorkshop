@@ -74,7 +74,7 @@ class Mario(Sprite):
         elif self.state == MARIO_STATE_JUMPING:
             self.image = IMAGE_SLIDER.get_mario("small_jumping")
 
-        print(self.rect.x)
+
         self.rect.x += self.change_x
 
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)

@@ -1,9 +1,11 @@
+from workshop.utils.loader import get_font
 from workshop.utils.sprite_loader import IMAGE_SLIDER
 
 __author__ = 'bakeneko'
 
 import pygame
 from pygame.sprite import Sprite
+
 from workshop.utils.constants import *
 
 class DyingMario(Sprite):
@@ -31,4 +33,80 @@ class DyingMario(Sprite):
         if self.rect.y >= SCREEN_HEIGHT + self.rect.height:
             self.kill()
 
+
+
+
+
+
+class Points(Sprite):
+
+    font = None
+
+    def __init__(self, score, x, y, level):
+
+        pygame.sprite.Sprite.__init__(self)
+        if not Points.font:
+            Points.font = get_font(8)
+        self.timeout = 1
+        self.level = level
+        self.image = Points.font.render(str(score), False, WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def update(self):
+        seconds = self.level.physics_info['seconds']
+        self.rect.y += -10 * seconds
+        self.timeout -= seconds
+        if self.timeout <= 0:
+            self.kill()
+
+
+
+class CollectedCoin(pygame.sprite.Sprite):
+
+    def __init__(self, x, y, level):
+
+        pygame.sprite.Sprite.__init__(self)
+
+        self.frame_index = 0
+        self.frames = []
+        self.level = level
+        for index in xrange(0, 4):
+            self.frames.append(IMAGE_SLIDER.get_item('collected_coin_{}'.format(index), 1))
+
+        self.image = self.frames[self.frame_index]
+        self.rect = self.frames[1].get_rect() #1 is the wider coin
+        self.rect.x = x
+        self.rect.y = y
+
+        self.timeout = 1
+        self.gravity = 0
+
+        self.frame_count = 0
+        self.level.stats.coins += 1
+
+    def update(self):
+        if self.timeout < 0: return
+        seconds = self.level.physics_info['seconds']
+        self.frame_count += 1
+
+        if self.frame_count == 2:
+            self.frame_count = 0
+            self.frame_index += 1
+            if self.frame_index == 4:
+                self.frame_index = 0
+
+        self.image = self.frames[self.frame_index]
+
+        #if self.frame_index == 0:
+        self.gravity += (PY_JUMP_Y_HOLDING_GRAVITY_1 * seconds)
+        self.rect.y += (-PY_JUMP_Y_VELOCITY_1 * seconds) + self.gravity
+        self.timeout -= seconds
+            #print(self.frame_index)
+
+        if self.timeout <= 0:
+            point = Points(200, self.rect.x, self.rect.y, self.level)
+            self.level.add_animation(point)
+            self.kill()
 
