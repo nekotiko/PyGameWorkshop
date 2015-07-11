@@ -2,7 +2,7 @@ __author__ = 'bakeneko'
 
 import pygame
 from constants import *
-from workshop.elements.bricks import RedBrick, SolidPlatform, Pipe
+from workshop.elements.bricks import RedBrick, SolidPlatform, Pipe, QuestionBox
 from workshop.elements.enemies import Goomba
 from workshop.elements.scenario import ScenarioItem
 from workshop.elements.scenario import Hill
@@ -31,8 +31,7 @@ def load_level(level_instance, lvl=1):
                     level_instance.add_platform(SolidPlatform(a_x, a_y))
 
                 elif compare_with_depth(color, MAP_QUESTION_BLOCK):
-                    pass
-                    #level_instance.add_brick(QuestionBox(a_x, a_y, level_instance))
+                    level_instance.add_brick(QuestionBox(a_x, a_y, level_instance))
 
                 elif compare_with_depth(color, MAP_BRICK):
                     level_instance.add_brick(RedBrick(a_x, a_y))

@@ -112,6 +112,9 @@ class Mario(Sprite):
                 self.rect.top = block.rect.bottom
                 self.__anti_gravity = False
                 self.__cutjump = True
+                if isinstance(block, RedBrick) and block.state == RESTING:
+                    block.start_bump()
+
 
 
             # Stop our vertical movement
@@ -126,9 +129,8 @@ class Mario(Sprite):
                 (enemy.rect.collidepoint(self.rect.midbottom) or \
                 enemy.rect.collidepoint(self.rect.bottomright) or \
                 enemy.rect.collidepoint(self.rect.bottomleft)) : #We kill it!
-
-                self.change_y = -15
                 enemy.jumped_on()
+
             else:
                 if enemy.state != FIEND_JUMPED_ON:
                     self.kill()

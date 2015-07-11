@@ -147,3 +147,45 @@ class RedBrick(Sprite):
             self.powerup_in_box = False
 
 
+
+
+
+class QuestionBox(RedBrick):
+
+    def __init__(self, x, y, level, contents='6coins'):
+
+       RedBrick.__init__(self, x, y, self.setup_frames, contents)
+
+       self.frame_index = 0
+       self.level = level
+       self.image = self.frames[self.frame_index]
+       self.opened_frame = [IMAGE_SLIDER.get_image('question_mark_3')]
+       self.rect = self.image.get_rect()
+       self.rect.x = x
+       self.rect.y = y
+       self.coin_total = 1
+       self.current_time = 0
+
+    def setup_frames(self):
+       """Set the frames to a list"""
+       for num in xrange(2, -1, -1):
+           self.frames.append(IMAGE_SLIDER.get_image('question_mark_{}'.format(num)))
+       for num in xrange(0, 3):
+           self.frames.append(IMAGE_SLIDER.get_image('question_mark_{}'.format(num)))
+
+    def update(self):
+
+       """Determines brick behavior based on state"""
+       if self.state == RESTING:
+           self.current_time += 5 * self.level.physics_info['seconds']
+           if self.current_time > 5:
+               self.current_time = 0
+           self.frame_index = int(self.current_time)
+           self.image = self.frames[self.frame_index]
+           self.resting()
+       elif self.state == BUMPED:
+
+           self.bumped()
+       elif self.state == OPENED:
+           self.opened()
+
