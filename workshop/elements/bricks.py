@@ -1,4 +1,5 @@
 import pygame
+from workshop.elements.animations import CollectedCoin
 
 __author__ = 'bakeneko'
 
@@ -189,3 +190,10 @@ class QuestionBox(RedBrick):
        elif self.state == OPENED:
            self.opened()
 
+
+    def start_bump(self):
+        if self.state != OPENED:
+            cc = CollectedCoin(self.rect.centerx, self.rect.centery, self.level)
+            self.level.add_animation(cc)
+
+        RedBrick.start_bump(self)

@@ -1,6 +1,7 @@
 from workshop.elements.bricks import RedBrick, SolidPlatform, Pipe
 from workshop.elements.enemies import Goomba
 from workshop.elements.scenario import ScenarioItem, ScenarioWithImage
+from workshop.elements.stats import Stats
 from workshop.utils.sprite_loader import get_hill
 
 __author__ = 'bakeneko'
@@ -28,6 +29,8 @@ class Level(object):
         #self.setup()
 
         self.physics_info = {'play_time': 0, 'seconds': 0, 'current_time': 0}
+
+        self.stats = Stats(self, 400)
 
     # Update everythign on this level
     def update(self):
