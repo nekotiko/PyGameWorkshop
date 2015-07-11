@@ -129,6 +129,9 @@ class Mario(Sprite):
                 (enemy.rect.collidepoint(self.rect.midbottom) or \
                 enemy.rect.collidepoint(self.rect.bottomright) or \
                 enemy.rect.collidepoint(self.rect.bottomleft)) : #We kill it!
+                self.change_y = -PY_ENEMY_STOMP_Y_SPEED * self.level.physics_info['seconds']
+                self.jump_physics['vel'] = PY_ENEMY_STOMP_Y_SPEED
+                self.state = MARIO_STATE_JUMPING
                 enemy.jumped_on()
 
             else:

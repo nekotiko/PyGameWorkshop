@@ -143,9 +143,6 @@ class RedBrick(Sprite):
         self.frame_index = 0
         self.image = self.frames[self.frame_index]
 
-        if self.contents == 'star' and self.powerup_in_box:
-
-            self.powerup_in_box = False
 
 
 
@@ -155,7 +152,7 @@ class QuestionBox(RedBrick):
 
     def __init__(self, x, y, level, contents='6coins'):
 
-       RedBrick.__init__(self, x, y, self.setup_frames, contents)
+       RedBrick.__init__(self, x, y, self.setup_frames, contents=contents)
 
        self.frame_index = 0
        self.level = level
@@ -191,9 +188,3 @@ class QuestionBox(RedBrick):
            self.opened()
 
 
-    def start_bump(self):
-        if self.state != OPENED:
-            cc = CollectedCoin(self.rect.centerx, self.rect.centery, self.level)
-            self.level.add_animation(cc)
-
-        RedBrick.start_bump(self)
